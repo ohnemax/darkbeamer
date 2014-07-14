@@ -1,0 +1,232 @@
+% Copyright 2014 by Moritz Kütt
+%% This file is is free software: you can redistribute it and/or modify
+%%     it under the terms of the GNU General Public License as published by
+%%     the Free Software Foundation, either version 3 of the License, or
+%%     (at your option) any later version.
+
+%%     This program is distributed in the hope that it will be useful,
+%%     but WITHOUT ANY WARRANTY; without even the implied warranty of
+%%     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%%     GNU General Public License for more details.
+
+%%     You should have received a copy of the GNU General Public License
+%%     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%%
+%% This file incorporates work covered by the following copyright and  
+%% permission notice:  
+%%
+%% Copyright 2007 by Till Tantau
+%%
+%% This file may be distributed and/or modified
+%%
+%% 1. under the LaTeX Project Public License and/or
+%% 2. under the GNU Public License.
+%%
+
+\RequirePackage[most]{tcolorbox}
+
+\tcbset{
+tcbeamer/.style={
+%  beamer,
+  width=\textwidth+3pt,
+  enlarge left by=-3pt,
+  bottom=0pt,
+  top=0pt,
+  left=1pt,
+  right=1pt,
+  arc=0pt,
+  outer arc=0pt,
+  toptitle=0pt,
+  bottomtitle=-1pt,
+  boxrule=0mm,
+  titlerule=1mm, 
+  toptitle=0.5mm,
+%  fonttitle=\bfseries,
+  drop fuzzy shadow,
+  }
+}
+\tcbset{enhanced}
+
+\RequirePackage{remreset}
+\makeatletter
+\@removefromreset{subsection}{section}
+\beamer@compresstrue
+\makeatother
+\setcounter{subsection}{1}
+
+\mode<presentation>
+
+% Set themes from beamer
+\useoutertheme[subsection=false]{smoothbars}
+\useinnertheme[shadow=true]{rounded}
+\usecolortheme{orchid}
+\usecolortheme{whale}
+
+% Set font
+\setbeamerfont{block title}{size={}}
+
+% Set colors for boxes / blocks
+\setbeamercolor*{block title}{fg=white,bg=black}
+\setbeamercolor*{block body}{fg=black,bg=white}
+\setbeamercolor*{block title alerted}{fg=black,bg=red!85}
+\setbeamercolor*{block body alerted}{fg=black,bg=red!10}
+\setbeamercolor*{block title example}{fg=black,bg=green!85}
+\setbeamercolor*{block body example}{fg=black,bg=green!10}
+
+
+\setbeamercolor{normal text}{fg=white,bg=black!85}
+\setbeamercolor{structure}{fg=white}
+
+\setbeamercolor{alerted text}{fg=red!85!black}
+\setbeamercolor{item projected}{use=item,fg=black,bg=item.fg!35}
+
+\setbeamercolor*{palette primary}{use=structure,fg=structure.fg}
+\setbeamercolor*{palette secondary}{use=structure,fg=structure.fg!95!black}
+\setbeamercolor*{palette tertiary}{use=structure,fg=structure.fg!90!black}
+\setbeamercolor*{palette quaternary}{use=structure,fg=structure.fg!95!black,bg=black!80}
+
+\setbeamercolor*{frametitle}{fg = white, bg=black}
+\setbeamercolor*{framesubtitle}{fg=white}
+
+\setbeamercolor{footlinecolor}{fg=white,bg=black}
+
+\setbeamerfont{frametitle}{size=\LARGE}
+
+
+\makeatletter
+
+% Standard Block
+\setbeamertemplate{block begin}
+{
+  \usebeamercolor{block title}
+  \def\darkbeamer@title@fgcolor{block title.fg}
+  \def\darkbeamer@title@bgcolor{block title.bg}
+  \usebeamercolor{block body}
+  \def\darkbeamer@body@fgcolor{block body.fg}
+  \def\darkbeamer@body@bgcolor{block body.bg}
+  
+  \ifx\insertblocktitle\empty
+     \def\darkbeamer@title@notitle{notitle}
+  \else
+     \def\darkbeamer@title@notitle{}
+  \fi
+  \begin{tcolorbox}[
+    adjusted title={\bfseries\insertblocktitle},
+    tcbeamer,
+    flushleft upper,
+    colupper=\darkbeamer@body@fgcolor,
+    colframe=\darkbeamer@title@bgcolor,
+    colback=\darkbeamer@body@bgcolor,
+    fonttitle=\color{\darkbeamer@title@fgcolor},
+    \darkbeamer@title@notitle,
+    ]
+}
+\setbeamertemplate{block end}
+{\end{tcolorbox}\vskip\smallskipamount}
+
+% Example Block
+\setbeamertemplate{block example begin}
+{
+  \usebeamercolor{block title example}
+  \def\darkbeamer@titleexample@fgcolor{block title example.fg}
+  \def\darkbeamer@titleexample@bgcolor{block title example.bg}
+  \usebeamercolor{block body example}
+  \def\darkbeamer@bodyexample@fgcolor{block body example.fg}
+  \def\darkbeamer@bodyexample@bgcolor{block body example.bg}
+  \ifx\insertblocktitle\empty
+     \def\darkbeamer@title@notitle{notitle}
+  \else
+     \def\darkbeamer@title@notitle{}
+  \fi
+
+  \begin{tcolorbox}[
+    adjusted title={\bfseries\insertblocktitle},
+    tcbeamer,
+    flushleft upper,
+    colupper=\darkbeamer@bodyexample@fgcolor,
+    colframe=\darkbeamer@titleexample@bgcolor,
+    colback=\darkbeamer@bodyexample@bgcolor,
+    fonttitle=\color{\darkbeamer@titleexample@fgcolor},
+    \darkbeamer@title@notitle,
+    ]
+}
+\setbeamertemplate{block example end}
+{\end{tcolorbox}\vskip\smallskipamount}
+
+% Alert block
+\setbeamertemplate{block alerted begin}
+{
+  \usebeamercolor{block body alerted}
+  \def\darkbeamer@bodyalerted@fgcolor{block body alerted.fg}
+  \def\darkbeamer@bodyalerted@bgcolor{block body alerted.bg}
+  \usebeamercolor{block title alerted}
+  \def\darkbeamer@titlealerted@fgcolor{block title alerted.fg}
+  \def\darkbeamer@titlealerted@bgcolor{block title alerted.bg}
+  \ifx\insertblocktitle\empty
+     \def\darkbeamer@title@notitle{notitle}
+  \else
+     \def\darkbeamer@title@notitle{}
+  \fi
+
+  \begin{tcolorbox}[
+    adjusted title={\bfseries\insertblocktitle},
+    tcbeamer,
+    flushleft upper,
+    colupper=\darkbeamer@bodyalerted@fgcolor,
+    colframe=\darkbeamer@titlealerted@bgcolor,
+    colback=\darkbeamer@bodyalerted@bgcolor,
+    fonttitle=\color{\darkbeamer@titlealerted@fgcolor},
+    \darkbeamer@title@notitle,
+    ]
+}
+\setbeamertemplate{block alerted end}
+{\end{tcolorbox}\vskip\smallskipamount}
+
+\makeatother
+
+% Footline
+\setbeamertemplate{footline}
+{%
+\leavevmode%
+\hbox{\begin{beamercolorbox}[wd=.85\paperwidth,ht=2ex,dp=1ex,leftskip=.3cm,rightskip=.3cm]{footlinecolor}
+\usebeamerfont{author in head/foot}
+\inserttitle~$|$~\insertshortauthor~$|$~\insertinstitute
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.15\paperwidth,ht=2ex,dp=1ex,leftskip=.3cm,rightskip=.3cm plus1fil]{footlinecolor}
+\usebeamerfont{author in head/foot}\hfill\insertframenumber
+\end{beamercolorbox}}%
+\vskip0pt%
+}
+
+% Define a variable Block
+\newenvironment<>{varblock}[2][.9\textwidth]{%
+\begin{center}
+\setlength{\textwidth}{#1}
+  \begin{actionenv}#3% 
+   \def\insertblocktitle{#2}%
+    \par%
+    \usebeamertemplate{block begin}}
+  {\par%
+    \usebeamertemplate{block end}%
+   \end{actionenv}\end{center}}
+
+\newcommand\MblackOrgFrameTitle[1]{
+}
+
+% Frame title
+\defbeamertemplate{frametitle}{DarkBeamer center}
+{%
+  \nointerlineskip%
+  \usebeamerfont{headline}%
+  \begin{center}
+    \usebeamerfont*{frametitle}\textbf{\insertframetitle}%
+  \end{center}
+
+}
+
+\setbeamertemplate{frametitle}[DarkBeamer center]
+
+\mode
+<all>
+
+
